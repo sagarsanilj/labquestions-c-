@@ -1,45 +1,70 @@
-/* Ask the user to input two numbers and a mathematical operator (+, -, , /) and display the result of the operation. 
-Eg 3 4 output 12 (Hint: use switch case)*/
+/*Write a program that: 
+a. Accepts a string from the user. 
+b. Checks whether the string is a palindrome (ignoring spaces and case sensitivity). 
+c. Counts and displays the frequency of each character in the string (case 
+insensitive). 
+d. Replace all vowels in the string with a specific character (e.g., *). */
 
-#include<iostream>
+#include <iostream>
+#include <algorithm>
+#include <cctype>
+#include <map>
 using namespace std;
-int main()
-{
-    int num1 , num2 ;
-    char op;
-    cout << "enter the value of num1 \n";
-    cin >> num1;
-    cout << "enter the value of num2 \n";
-    cin >> num2;
-    cout<< "enter the operator to apply  (+ , - , * , / , % ) : ";
-    cin >> op ; 
-     
-      switch(op){
-    case '+' :
-       cout<<"RESULT a4" << num1 + num2  <<endl;
-       break;
-       case '-' :
-       break;
-       cout<<"RESULT " << num1 - num2  <<endl;
-       break;
-       case '*' :
-       cout<<"RESULT " << num1 * num2  <<endl;
-       break;
-        case '/':
-     if (num2 != 0) {
-    cout << "Result  " << num1 / num2 << endl;
-       } else {
-      cout << "Error: Division by zero is not allowed." << endl;
-      
-       case '%' :
-       cout << "RESULT "  << num1 % num2  <<endl;
-      }
-       break;
 
-      
-   default:
-            cout << "Invalid operator!" << endl;
+
+bool isPalindrome(string str) {
+string cleaned = "";
+    for (char c : str) {
+if (isalnum(c)) {
+    cleaned += tolower(c);
+ }
+    }
+    string reversed = cleaned;
+    reverse(reversed.begin(), reversed.end());
+    return cleaned == reversed;
 }
-   return 0; 
+
+
+void countFrequency(string str) {
+    map<char, int> freq;
+    for (char c : str) {
+if (isalnum(c)) {
+    freq[tolower(c)]++;
+}
+    }
+    cout << "Character frequencies:" << endl;
+    for (auto pair : freq) {
+   cout << pair.first << ": " << pair.second << endl;
+    }
+}
+
+
+void replaceVowels(string &str) {
+    string vowels = "aeiouAEIOU";
+    for (char &c : str) {
+   if (vowels.find(c) != string::npos) {
+ c = '*';
+  }
+    }
+}
+
+int main() {
+    string input;
+    cout << "Enter a string: ";
+    getline(cin, input);
+
+    if (isPalindrome(input)) {
+   cout << "The string is a palindrome." << endl;
+    } else {
+  cout << "The string is not a palindrome." << endl;
+    }
+    
+    countFrequency(input);
+    
+
+    replaceVowels(input);
+    cout << "String after replacing vowels: " << input << endl;
+    
+    return 0;
 }
 
